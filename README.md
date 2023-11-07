@@ -1,3 +1,4 @@
 # Cooking-Recipies
 
-Test; Web Apps, Fall 2023.
+When starting run this:
+. venv/bin/activate
