@@ -1,3 +1,4 @@
 # Cooking-Recipies
 
-hello its george
+When starting run this:
+. venv/bin/activate
