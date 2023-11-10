@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- TO IMPLEMENT: photo in the upper right should be correct -->
+    <header class="profileHeader">
+        <div class="profilePhoto">
+            <img src="testphoto.jpg">
+        </div>
+        <div>
+            <h2>Username</h2>
+            <span>User bio here maybe?</span>
+        </div>
+        <div>
+            <!-- IMPLEMENT: link goes to bookmarks view, which is exactly the same as user but with only bookmarked recipes -->
+            <a href="{{ url_for('main.bookmark')}}">
+                <button type="button">Bookmarked Recipes</button>
+            </a>
+        </div>
+    </header>
+
+    {% include 'posts_template.html' %}
+{% endblock %}
