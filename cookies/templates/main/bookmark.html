@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- TO IMPLEMENT: photo in the upper right should be correct -->
+    <header class="profileHeader">
+        <div class="profilePhoto">
+            <a href="{{ url_for('main.profile')}}">
+                <img src="testphoto.jpg">
+            </a>
+        </div>
+        <div>
+            <h2>Username</h2>
+            <span>User bio here maybe?</span>
+        </div>
+    </header>
+
+    <!-- THIS IS ONLY BOOKMARKED RECIPES -->
+    {% include 'posts_template.html' %}
+{% endblock %}

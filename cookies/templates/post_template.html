@@ -1,7 +1,31 @@
-<div class="message">
-    <div class="text">{{ post.text}}</div>
-    <div class="metadata">
-        <span class="author">{{ post.user.name }}</span>
-        <span class="date">{{ post.timestamp }}</span>
+<div class="recipe">
+    <header id="recipeHeader">
+        <!-- TO IMPLEMENT:
+            make title a link to the recipe view
+            make the username a link to their profile view  -->
+        <a href="{{ url_for('main.recipe')}}">
+            <h2>Recipe Title</h2>
+        </a>
+        <a href="{{ url_for('main.profile')}}">
+            <h3>Creator Username</h3>
+        </a>
+        <div id="5StarRating">
+            Recipe Rating Here
+        </div>
+    </header>
+    <section id="recipeBody">
+        <!-- Here, we have an image to the left and a description of the recipe to the right -->
+        <div class="recipeImg">
+            <img src="testimg.jpg">
+        </div>
+        <p id="recipeDescription">
+            Recipe description paragraph goes here
+        </p>
+    </section>
+    
+    <!-- "metadata" should be hidden -->
+    <div class="metadata"> 
+        <span class="author">@username</span>
+        <span class="date">timestamp</span>
     </div>
 </div>

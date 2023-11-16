@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+<!-- shows all of the content of a single recipe -->
+{% block content %}
+
+    {% for post in post %}
+        {% include 'post_template.html' %}
+    {% endfor %}
+
+{% endblock %}

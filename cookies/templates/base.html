@@ -2,18 +2,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Microblogging app</title>
-        <link rel="stylesheet"
-              href="{{ url_for('static', filename='microblog.css') }}">
+        <title>Cooking Recipes</title>
+        <link href="{{ url_for('static', filename='recipe.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <header>
-            <h1>Microblogging</h1>
-            <a href="{{ url_for('main.index') }}">Home</a>
+        <header id="nav">
+            <div id="newRecipeButton">
+                <button type="button">
+                    <a href="base.html">New Recipe</a>
+                </button>
+            </div>
+            <div id="homeHeader">
+                <a href="{{ url_for('main.index')}}"
+                <h1>Home</h1>
+            </div>
+            <div class="profilePhoto">
+                <a href="{{ url_for('main.profile')}}">
+                    <img src="testimg.jpg">
+                </a>
+            </div>
         </header>
         <section class="content">
             {% block content %}{% endblock %}
         </section>
-        <footer><small>Developed for Web applications</small></footer>
+        <footer><small>Developed by George, Jordan, and Gavin for Web Applications</small></footer>
     </body>
 </html>
