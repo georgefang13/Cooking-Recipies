@@ -1,36 +1,40 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: beige;
-    color: #333;
+    font-family: 'Times New Roman', serif;
+    background-color: #f3e5ab; 
+    color: #5a5858;
     margin: 0;
     padding: 0;
 }
 
 /* Header Bar */
 header {
-    background-color: #333;
-    color: white;
+    background-color: #8f5e15; 
+    color: #fff;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 15px;
+    border-bottom: 3px solid #c7a589; 
 }
 
 header a {
-    color: white;
+    color: #fff;
     text-decoration: none;
     padding: 10px;
+    transition: color 0.3s;
+}
+
+header a:hover {
+    color: #c7a589; /* Hover effect */
 }
 
 /* Home Page Styles */
-.search-bar {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.sort-feature {
+.search-bar, .sort-feature {
+    background: #fff;
+    padding: 15px;
     margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .recipe-list {
@@ -39,14 +43,21 @@ header a {
 }
 
 .recipe-item {
-    background: #f4f4f4;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #c7a589; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .plus-button, .profile-picture {
     cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.plus-button:hover, .profile-picture:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
 }
 
 /* Recipe View Styles */
@@ -58,11 +69,16 @@ header a {
 
 .recipe-details, .recipe-interactions {
     flex-basis: 48%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .recipe-title {
     font-size: 2em;
     font-weight: bold;
+    color: #8f5e15; 
 }
 
 .recipe-user, .recipe-description, .recipe-ingredients, .recipe-steps {
@@ -74,7 +90,10 @@ header a {
 }
 
 .comment-item {
+    background: #f4f4f4;
+    padding: 10px;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 /* Profile View Styles */
@@ -84,34 +103,16 @@ header a {
 }
 
 .profile-photo {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    margin-bottom: 10px;
+    border: 3px solid #8f5e15;
+    margin-bottom: 20px;
 }
 
 .user-recipes, .bookmarked-recipes {
     list-style: none;
     padding: 0;
-}
-
-/* Common Elements */
-.plus-button, .profile-picture {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-size: cover;
-    border: 2px solid white;
-    margin: 5px;
-}
-
-.rating, .serving-info, .cooking-time {
-    margin-bottom: 10px;
-}
-
-/* Utility Classes */
-.hidden {
-    display: none;
 }
 
 /* Responsive Design */
