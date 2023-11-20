@@ -1,3 +1,126 @@
+/* General Styles */
 body {
+    font-family: Arial, sans-serif;
     background-color: beige;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Bar */
+header {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+/* Home Page Styles */
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.sort-feature {
+    margin: 10px 0;
+}
+
+.recipe-list {
+    list-style: none;
+    padding: 0;
+}
+
+.recipe-item {
+    background: #f4f4f4;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.plus-button, .profile-picture {
+    cursor: pointer;
+}
+
+/* Recipe View Styles */
+.recipe-view {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.recipe-details, .recipe-interactions {
+    flex-basis: 48%;
+}
+
+.recipe-title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.recipe-user, .recipe-description, .recipe-ingredients, .recipe-steps {
+    margin-bottom: 20px;
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.comment-item {
+    margin-bottom: 10px;
+}
+
+/* Profile View Styles */
+.profile-view {
+    text-align: center;
+    margin: 20px;
+}
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-recipes, .bookmarked-recipes {
+    list-style: none;
+    padding: 0;
+}
+
+/* Common Elements */
+.plus-button, .profile-picture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-size: cover;
+    border: 2px solid white;
+    margin: 5px;
+}
+
+.rating, .serving-info, .cooking-time {
+    margin-bottom: 10px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .recipe-view {
+        flex-direction: column;
+    }
+
+    .recipe-details, .recipe-interactions {
+        flex-basis: 100%;
+    }
 }
