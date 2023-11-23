@@ -8,7 +8,10 @@ def create_app(test_config=None):
 
     # A secret for signing session cookies
     app.config["SECRET_KEY"] = "93220d9b340cf9a6c39bac99cce7daf220167498f91fa"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # The database will be stored into the local file cookies.db, inside the subdirectory called instance that Flask will create.
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cookies.db" 
+
 
     # Initialize database
     db.init_app(app)
