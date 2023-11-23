@@ -5,7 +5,7 @@ body {
 
 /* Base.html header css code here (thru #nav div:hover) */
 #nav {
-    background-color: black;
+    background-color: gray;
     padding: 10px 0;
     display: flex;
     justify-content: center;
