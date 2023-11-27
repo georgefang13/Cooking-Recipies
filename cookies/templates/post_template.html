@@ -1,26 +1,35 @@
-<div class="recipe">
+<div class="recipe-view">
     <header id="recipeHeader">
         <!-- TO IMPLEMENT:
             make title a link to the recipe view
             make the username a link to their profile view  -->
         <a href="{{ url_for('main.recipe')}}">
-            <h2>Recipe Title</h2>
+            <h2 class="recipe-title">Recipe Title</h2>
         </a>
-        <a href="{{ url_for('main.profile')}}">
+        <a href="{{ url_for('main.profile')}}" class="recipe-user">
             <h3>Creator Username</h3>
         </a>
-        <div id="5StarRating">
+        <div id="recipe-rating">
             Recipe Rating Here
         </div>
     </header>
-    <section id="recipeBody">
+    <section id="recipe-details">
         <!-- Here, we have an image to the left and a description of the recipe to the right -->
-        <div class="recipeImg">
-            <img src="testimg.jpg">
+        <div class="recipe-image">
+            <img src="static/testimg.jpg">
         </div>
-        <p id="recipeDescription">
+        <p class="recipe-description">
             Recipe description paragraph goes here
         </p>
+        <ul class="recipe-ingredients">
+                <li>Ingredient 1</li>
+                <li>Ingredient 2</li>
+                <li>Ingredient 3</li>
+                <li>Ingredient ...</li>
+        </ul>
+        <div class="comments-section">
+            <p>My comment here</p>
+        </div>
     </section>
     
     <!-- "metadata" should be hidden -->
