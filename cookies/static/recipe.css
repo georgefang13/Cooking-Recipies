@@ -113,7 +113,7 @@ header a:hover {
 .recipe-title {
     font-size: 2em;
     font-weight: bold;
-    color: #8f5e15; 
+    color: #ffffff;
 }
 
 .recipe-user, .recipe-description, .recipe-ingredients, .recipe-steps {
