@@ -65,7 +65,7 @@ def recipe():
             id=1, user=user, title="Food Title", person_count=1, cooking_time=1
         ),
     ]
-    return render_template("main/recipe.html", post=post)
+    return render_template("main/recipe.html", posts=posts)
 
 @bp.route("/new_recipe")
 def new_recipe():
