@@ -20,7 +20,7 @@ def create_app(test_config=None):
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cookies.db"
     #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://gavin:kyrieKitch13@localhost/Microblog"
 
-    db.init_app(app)
+    # db.init_app(app)
 
     # Register blueprints
     # (we import main from here to avoid circular imports in the next lab)
