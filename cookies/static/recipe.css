@@ -1,6 +1,33 @@
+/* General Styles */
 body {
-    background-color: white;
-    margin: 0; /* Add margin: 0; to remove default body margin */
+    font-family: 'Times New Roman', serif;
+    background-color: #f3e5ab; 
+    color: #5a5858;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Bar */
+header {
+    background-color: #8f5e15; 
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 1em 1em;
+    border-bottom: 3px solid #c7a589; 
+    vertical-align: center;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+header a:hover {
+    color: #c7a589; /* Hover effect */
 }
 
 /* Base.html header css code here (thru #nav div:hover) */
@@ -36,6 +63,106 @@ body {
     transform: translateX(-50%);
 }
 
-#nav div:hover {
-    background-color: #333; /* Darker shade on hover */
+/* Home Page Styles */
+.search-bar, .sort-feature {
+    background: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.recipe-list {
+    list-style: none;
+    padding: 0;
+}
+
+.recipe-item {
+    background: #fff;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #c7a589; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.plus-button, .profile-picture {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.plus-button:hover, .profile-picture:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Recipe View Styles {MISSING RECIPE RATING?}*/
+.recipe-view {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.recipe-details, .recipe-interactions {
+    flex-basis: 48%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.recipe-user, .recipe-description, .recipe-ingredients, .recipe-steps {
+    margin-bottom: 20px;
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.comment-item {
+    background: #f4f4f4;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.metadata {
+    visibility: hidden;
+}
+
+/* Profile View Styles */
+.profile-view {
+    text-align: center;
+    margin: 20px;
+}
+
+.profile-photo {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    align-items: center;
+    border-radius: 50%;
+    border: 3px solid #8f5e15;
+    margin-bottom: 20px;
+}
+
+.user-recipes, .bookmarked-recipes {
+    list-style: none;
+    padding: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .recipe-view {
+        flex-direction: column;
+    }
+
+    .recipe-details, .recipe-interactions {
+        flex-basis: 100%;
+    }
 }

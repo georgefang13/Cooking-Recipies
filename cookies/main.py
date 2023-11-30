@@ -11,13 +11,13 @@ bp = Blueprint("main", __name__)
 
 @bp.route("/")
 def index():
-    user = model.User(email="tnam@example.com", name="Talissa")
+    user = model.User(id=1, email="mary@example.com", name="mary")
     posts = [
         model.Message(
-            user=user, text="Test post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
+            id=1, user=user, text="Test post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
         ),
         model.Message(
-            user=user, text="Another post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
+            id=2, user=user, text="Another post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
         ),
         model.Message(
             user=user, text="Third post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
@@ -27,13 +27,13 @@ def index():
 
 @bp.route("/profile")
 def profile():
-    user = model.User(email="tnam@example.com", name="Talissa")
+    user = model.User(id=1, email="john@example.com", name="JohnDoe")
     posts = [
         model.Message(
-            user=user, text="Test post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
+            id=1, user=user , text="Post 1", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
         ),
         model.Message(
-            user=user, text="Another post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
+            id=2, user=user , text="Post 2", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
         ),
         model.Message(
             user=user, text="Third post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
@@ -43,13 +43,13 @@ def profile():
 
 @bp.route("/bookmark")
 def bookmark():
-    user = model.User(email="tnam@example.com", name="Talissa")
+    user = model.User(id=1, email="john@example.com", name="JohnDoe")
     posts = [
         model.Message(
-            user=user, text="Test post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
+            id=1, user=user , text="Post 1", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
         ),
         model.Message(
-            user=user, text="Another post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
+            id=2, user=user , text="Post 2", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
         ),
         model.Message(
             user=user, text="Third post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
@@ -59,16 +59,10 @@ def bookmark():
 
 @bp.route("/recipe")
 def recipe():
-    user = model.User(email="tnam@example.com", name="Talissa")
-    posts = [
+    user = model.User(id=1, email="test@example.com", name="testUser")
+    post = [
         model.Message(
-            user=user, text="Test post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
-        ),
-        model.Message(
-            user=user, text="Another post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
-        ),
-        model.Message(
-            user=user, text="Third post", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
+            id=3, user=user, text="My First Post!", timestamp=datetime.datetime.now(dateutil.tz.tzlocal())
         )
     ]
     return render_template("main/recipe.html", post=posts)

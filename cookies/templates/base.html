@@ -7,18 +7,17 @@
     </head>
     <body>
         <header id="nav">
-            <div id="newRecipeButton">
+            <div id="plus-button">
                 <button type="button">
                     <a href="base.html">New Recipe</a>
                 </button>
             </div>
             <div id="homeHeader">
-                <a href="{{ url_for('main.index')}}"
-                <h1>Home</h1>
+                <a href="{{ url_for('main.index')}}"><h1>Home</h1></a>
             </div>
-            <div class="profilePhoto">
+            <div>
                 <a href="{{ url_for('main.profile')}}">
-                    <img src="testimg.jpg">
+                    <img class="profile-photo" src="static/testimg.jpg">
                 </a>
             </div>
         </header>
