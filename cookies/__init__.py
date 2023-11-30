@@ -17,7 +17,7 @@ def create_app(test_config=None):
     db.init_app(app)
 
     #database
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cookies.db"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cookies.db"
     #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://gavin:kyrieKitch13@localhost/Microblog"
 
     # db.init_app(app)

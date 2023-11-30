@@ -7,7 +7,7 @@ class User(db.Model):
     name = db.Column(db.String(64), nullable=False)
 
     # # One-to-Many relationship between users and recipes
-    recipes = db.relationship('Recipe', back_populates='user', lazy=True)
+    recipes = db.relationship('Recipe', back_populates='user')
 
     # # One-to-Many relationship between users and ratings
     # ratings = db.relationship('Rating', back_populates='user', lazy=True)
@@ -54,7 +54,8 @@ class Recipe(db.Model):
 
 # class QuantifiedIngredient(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
-#     quantity = db.Column(db.String(20), nullable=False)
+#     quantity = db.Column(db.Float, nullable=False)
+#     units = db.Column(db.String(20), nullable=False)
 
 #     # Many-to-One relationship between quantified ingredients and recipes
 #     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
