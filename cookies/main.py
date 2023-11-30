@@ -65,4 +65,11 @@ def recipe():
             id=1, user=user, title="Food Title", person_count=1, cooking_time=1
         ),
     ]
-    return render_template("main/recipe.html", post=posts)
+    return render_template("main/recipe.html", post=post)
+
+@bp.route("/new_recipe")
+def new_recipe():
+    #missing code here to add all of the information from the form into the database
+    return render_template("main/new_recipe.html")
+
+#need a controller here to recieve form
