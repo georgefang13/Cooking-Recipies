@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script type="text/javascript" src="static/recipe.js"></script>
+
+<form class="new-recipe" method="post" enctype="multipart/form-data">
+    <label for="recipe-title">Enter the recipe title:</label><br>
+    <input type="text" id="recipe-title" name="recipe-title" required><br><br>
+    <label for="recipe-description">Enter a brief description:</label><br>
+    <textarea id="recipe-description" name="recipe-description" required></textarea><br><br>
+    <label for="cook-time">How long does it take to make?</label><br>
+    <input type="text" id="cook-time" name="cook-time" required><br><br>
+    <label for="number-of-people">How many people does this dish serve?</label><br>
+    <input type="number" step="1" id="number-of-people" name="num-people" required><br><br>
+
+    <label for="ingredients">Add a list of ingredients with corresponding measurements:</label>
+    <div id="ingredient-container">
+        <div class="recipe-ingredient">
+            <input type="text" name="ingredient" placeholder="Name, Qty" required>
+            <button type="button" onclick="removeIngredient(this)">Remove</button>
+        </div>
+    </div>
+    <button type="button" onclick="addIngredient()">Add Ingredient</button>
+    <br><br>
+
+    <label for="steps">Add a list of steps for this recipe:</label>
+    <ol class="recipe-step">
+            <li>
+                <div id="step-container">
+                    <input type="text" name="step" required>
+                    <button type="button" onclick="removeStep(this)">Remove</button>
+                </div>
+            </li>
+    </ol>
+
+    <button type="button" onclick="addStep()">Add Step</button>
+    <br><br>
+
+    <input type="file" name="photo" accept="image/jpeg,image/png" required><br><br>
+
+    <!-- <input type="hidden" name="recipe_id" value"> -->
+
+    <input type="submit" value="Submit">
+
+</form>
+
+{% endblock %}
