@@ -1,9 +1,11 @@
 import datetime
+from os import abort
 import dateutil.tz
+from flask import Blueprint, render_template, render_template, request, redirect, url_for, flash
+import flask_login
+from flask_login import current_user
 
-from flask import Blueprint, render_template
-
-
+from . import db
 from . import model
 
 bp = Blueprint("main", __name__)
@@ -42,6 +44,7 @@ def profile():
     return render_template("main/profile.html", posts=posts)
 
 @bp.route("/bookmark")
+@flask_login.login_required     #must be the user in order to view bookmarked recipes
 def bookmark():
     user = model.User(id=3, email="john@example.com", password="password", name="JohnDoe")
     posts = [
@@ -68,6 +71,7 @@ def recipe():
     return render_template("main/recipe.html", posts=posts)
 
 @bp.route("/new_recipe")
+@flask_login.login_required
 def new_recipe():
     #missing code here to add all of the information from the form into the database
     return render_template("main/new_recipe.html")

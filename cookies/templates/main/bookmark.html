@@ -13,7 +13,11 @@
         </div>
         <div>
             <a href="{{ url_for('main.profile')}}">
-                <h2>Username</h2>
+                <h2>
+                    {% if current_user.is_authenticated: %}
+                        <div>User: {{current_user.name}}</div>
+                    {% endif %}
+                </h2>
             </a>
         </div>
     </header>
