@@ -7,7 +7,7 @@ class User(db.Model):
     name = db.Column(db.String(64), nullable=False)
 
     # # One-to-Many relationship between users and recipes
-    recipes = db.relationship('Recipe', back_populates='user')
+    recipes = db.relationship('Recipe', back_populates='user', lazy=True)
 
     # One-to-Many relationship between users and ratings
     ratings = db.relationship('Rating', back_populates='user', lazy=True)

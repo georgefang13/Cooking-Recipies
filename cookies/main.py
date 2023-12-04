@@ -17,10 +17,10 @@ def index():
             id=1, user=user, title="Food Title", person_count=1, cooking_time=1
         ),
         model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
+            id=1, user=user, title="Another Food Title", person_count=1, cooking_time=1
         ),
         model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
+            id=1, user=user, title="Yet another Food Title", person_count=1, cooking_time=1
         )
     ]
     return render_template("main/index.html", posts=posts)
