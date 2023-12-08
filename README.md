@@ -34,7 +34,13 @@ with app.app_context():
 To see if the user was added:
 from cookies import create_app, db
 from cookies.model import User
+
 app = create_app()
-with app.app_context(): queried_user = User.query.filter_by(email="test2@example.com").first()
-if queried_user: print(f"User found: {queried_user}")
-else: print("User not found.")
+
+with app.app_context():
+    queried_user = User.query.filter_by(email="george.fang@duke.edu").first()
+
+if queried_user:
+    print(f"User found: {queried_user}")
+else:
+    print("User not found.")
