@@ -10,3 +10,21 @@ with app.app_context():
     db.create_all()
 
 My mistake with the data base was there are two cookies.py files. One in the root directory and one in the instance directory. To check if tables were made after running the above command, you need to do sqlite3 instance/cookies.db when using the SQLite command-line tool. 
+
+
+To manually add a user:
+from cookies import create_app, db
+from cookies.model import User
+app = create_app()
+with app.app_context():
+    new_user = User(email="newuser@example.com", password="password", name="New User")
+    db.session.add(new_user)
+    db.session.commit()
+
+To see if the user was added:
+from cookies import create_app, db
+from cookies.model import User
+app = create_app()
+with app.app_context(): queried_user = User.query.filter_by(email="test2@example.com").first()
+if queried_user: print(f"User found: {queried_user}")
+else: print("User not found.")
