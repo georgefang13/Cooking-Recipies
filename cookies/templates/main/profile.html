@@ -4,16 +4,28 @@
     <!-- TO IMPLEMENT: photo in the upper right should be correct -->
     <header class="profile-view">
         <div class="profile-photo">
-            <img class="profile-photo" src="static/testimg.jpg">
+            {% if current_user.is_authenticated %}
+                <img class="profile-photo" src="static/testimg.jpg">
+            {% endif %}
         </div>
-        <div>
-            <h2>Username</h2>
-        </div>
+        <!-- TO FIX: how do we show another user's name? If they are not the current user, i.e. I am not viewing my own prof -->
+        <h2>
+            {% if current_user.is_authenticated: %}
+                <div>User: {{current_user.name}}</div>
+            {% endif %}
+        </h2>
         <div>
             <!-- IMPLEMENT: link goes to bookmarks view, which is exactly the same as user but with only bookmarked recipes -->
             <a href="{{ url_for('main.bookmark')}}">
                 <button type="button">Bookmarked Recipes</button>
             </a>
+            {% if current_user.is_authenticated %}
+            <p>
+                <a href="{{ url_for('auth.logout')}}">
+                    <button type="button">Log Out</button>
+                </a>
+            </p>
+            {% endif %}
         </div>
     </header>
 
