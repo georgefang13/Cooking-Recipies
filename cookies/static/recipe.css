@@ -1,16 +1,16 @@
 /* General Styles */
 body {
     font-family: 'Times New Roman', serif;
-    background-color: #cedcea; 
-    color: #374254;
+    background-color: #7390ad; 
+    color: #1d273a;
     margin: 0;
     padding: 0;
 }
 
 /* Header Bar */
 header {
-    background-color: #475da5; 
-    color: #fff;
+    background-color: #1d273a; 
+    color: #ffffff;
     display: flex;
     justify-content: space-between;
     padding: 0.5em 0; 
@@ -31,14 +31,14 @@ header a:hover {
     color: #1d273a; /* Hover effect */
 }
 
-/* Base.html header css code here (thru #nav div:hover) */
+/* Base.html Header CSS */
 #nav {
-    background-color: rgb(136, 159, 186);
+    background-color: #7390ad;
     padding: 0.5em 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    list-style-type: none; /* Remove the list-style-type for div elements */
+    list-style-type: none;
     margin: 0 auto;
     padding: 2em 2em;
 }
@@ -51,11 +51,11 @@ header a:hover {
 }
 
 #nav div:first-child {
-    margin-right: auto; /* Push the first item to the left edge */
+    margin-right: auto;
 }
 
 #nav div:last-child {
-    margin-left: auto; /* Push the last item to the right edge */
+    margin-left: auto;
 }
 
 #nav div:nth-child(2) {
@@ -79,7 +79,7 @@ header a:hover {
 }
 
 .recipe-item {
-    background: #fff;
+    background: #3e6abb;
     margin-bottom: 15px;
     padding: 15px;
     border-radius: 8px;
@@ -93,34 +93,52 @@ header a:hover {
 }
 
 .plus-button:hover, .profile-picture:hover {
-    transform: scale(1.1); /* Slight zoom on hover */
+    transform: scale(1.1);
 }
 
-/* Recipe View Styles {MISSING RECIPE RATING?}*/
-.recipe-view {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-}
-
-.recipe-details, .recipe-interactions {
-    flex-basis: 48%;
+/* Recipe Box */
+.recipe-box {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.recipe-title {
-    font-size: 2em;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.recipe-user, .recipe-description, .recipe-ingredients, .recipe-steps {
+/* Recipe Header */
+.recipe-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
+/* Recipe User */
+.recipe-user h3 {
+    font-size: 1em;
+    color: #374254;
+    margin: 0;
+}
+
+/* Recipe Title */
+.recipe-title h2 {
+    font-size: 2em;
+    color: #1d273a;
+    text-align: center;
+    margin: 0;
+    flex-grow: 1;
+}
+
+/* Recipe Rating */
+#recipe-rating {
+    color: #374254;
+    margin: 0;
+}
+
+/* Comment and Metadata Styles */
 .comments-section {
     margin-top: 20px;
 }
@@ -139,7 +157,7 @@ header a:hover {
 /* Profile View Styles */
 .profile-view {
     text-align: center;
-    margin: 20px;
+    margin: 0px;
 }
 
 .profile-photo {
@@ -148,7 +166,7 @@ header a:hover {
     object-fit: cover;
     align-items: center;
     border-radius: 50%;
-    border: 3px solid #8f5e15;
+    border: 3px solid #1d273a;
     margin-bottom: 20px;
 }
 
@@ -163,7 +181,7 @@ header a:hover {
         flex-direction: column;
     }
 
-    .recipe-details, .recipe-interactions {
-        flex-basis: 100%;
+    .recipe-box {
+        flex-direction: column;
     }
 }
