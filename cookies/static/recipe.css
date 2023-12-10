@@ -1,39 +1,40 @@
 /* General Styles */
 body {
     font-family: 'Times New Roman', serif;
-    background-color: #f3e5ab; 
-    color: #5a5858;
+    background-color: #cedcea; 
+    color: #374254;
     margin: 0;
     padding: 0;
 }
 
 /* Header Bar */
 header {
-    background-color: #8f5e15; 
+    background-color: #475da5; 
     color: #fff;
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
-    padding: 1em 1em;
-    border-bottom: 3px solid #c7a589; 
-    vertical-align: center;
+    padding: 0.5em 0; 
+    border-bottom: 3px solid #1d273a;
+    width: 100%; 
+    margin: 0; 
+    box-sizing: border-box; 
 }
 
 header a {
-    color: #fff;
+    color: #101114;
     text-decoration: none;
     padding: 10px;
     transition: color 0.3s;
 }
 
 header a:hover {
-    color: #c7a589; /* Hover effect */
+    color: #1d273a; /* Hover effect */
 }
 
 /* Base.html header css code here (thru #nav div:hover) */
 #nav {
-    background-color: gray;
-    padding: 10px 0;
+    background-color: rgb(136, 159, 186);
+    padding: 0.5em 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,7 +83,7 @@ header a:hover {
     margin-bottom: 15px;
     padding: 15px;
     border-radius: 8px;
-    border: 1px solid #c7a589; 
+    border: 1px solid #050504; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
