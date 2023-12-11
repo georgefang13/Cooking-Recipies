@@ -4,7 +4,7 @@ import dateutil.tz
 from flask import Blueprint, render_template, render_template, request, redirect, url_for, flash
 import flask_login
 from flask_login import current_user
-from .model import Recipe, QuantifiedIngredient, Step, Ingredient
+from .model import User, Recipe, QuantifiedIngredient, Step, Ingredient
 
 from . import db
 from . import model
@@ -13,19 +13,23 @@ bp = Blueprint("main", __name__)
 
 @bp.route("/")
 def index():
-    user = model.User(id=1, email="mary@example.com", password="password", name="mary")
-    posts = [
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-        model.Recipe(
-            id=1, user=user, title="Another Food Title", person_count=1, cooking_time=1
-        ),
-        model.Recipe(
-            id=1, user=user, title="Yet another Food Title", person_count=1, cooking_time=1
-        )
-    ]
-    return render_template("main/index.html", posts=posts)
+    # users_with_recipes = User.query.options(db.joinedload('recipes')).all()
+    # return render_template('index.html', users_with_recipes=users_with_recipes)
+    # user = 
+    # user = model.User(id=1, email="mary@example.com", password="password", name="mary")
+    # posts = [
+    #     model.Recipe(
+    #         id=1, user=user, title="Food Title", person_count=1, cooking_time=1
+    #     ),
+    #     model.Recipe(
+    #         id=1, user=user, title="Another Food Title", person_count=1, cooking_time=1
+    #     ),
+    #     model.Recipe(
+    #         id=1, user=user, title="Yet another Food Title", person_count=1, cooking_time=1
+    #     )
+    # ]
+    recipes = Recipe.query.all()
+    return render_template("main/index.html", posts=recipes)
 
 @bp.route("/profile")
 def profile():
@@ -42,6 +46,20 @@ def profile():
         ),
     ]
     return render_template("main/profile.html", posts=posts)
+    
+# @bp.route('/profile/<int:user_id>')
+# def profile(user_id):
+#     # Fetch the user and all their associated recipes from the database
+#     # user = User.query.filter_by(id=user_id).first()
+#     user = db.session.get(model.User, user_id)
+
+#     if user:
+#         user_recipes = user.recipes.all()  # Fetch all associated recipes
+#         return render_template('main/profile.html', user=user, posts=user_recipes)
+#     else:
+#         # Handle the case when the user is not found
+#         abort(404, "User id {} doesn't exit.".format(user_id))
+
 
 @bp.route("/bookmark")
 @flask_login.login_required     #must be the user in order to view bookmarked recipes

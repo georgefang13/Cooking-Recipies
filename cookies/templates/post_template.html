@@ -2,22 +2,22 @@
     <div class="recipe-box">
         <div class="recipe-header">
             <a href="{{ url_for('main.profile')}}" class="recipe-user">
-                <h3>Creator Username</h3>
+                <h3>{{ post.user.name }}</h3>
             </a>
             <span class="recipe-title">
                 <a href="{{ url_for('main.recipe')}}">
-                    <h2>Recipe Title</h2>
+                    <h2>{{ post.title }}</h2>
                 </a>
             </span>
             <span id="recipe-rating">
-                Recipe Rating Here
+                Recipe Rating Here (still need to do this)
             </span>
         </div>
 
         <div class="recipe-specs">
             <!-- Recipe Specifications like Number of People and Cook Time -->
-            <span>Number of People it is for</span>
-            <span>Cook Time?</span>
+            <span>Servings: {{ post.person_count }}</span>
+            <span>Cook Time: {{ post.cooking_time }}</span>
         </div>
 
         <div id="recipe-details">
@@ -26,7 +26,7 @@
                 <img src="static/testimg.jpg">
             </div>
             <p class="recipe-description">
-                Recipe description paragraph goes here
+                Description: {{ post.description }}
             </p>
         </div>
     
