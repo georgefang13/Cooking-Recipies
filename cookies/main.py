@@ -28,37 +28,24 @@ def index():
     #         id=1, user=user, title="Yet another Food Title", person_count=1, cooking_time=1
     #     )
     # ]
+    # query = db.select(model.Recipe)
+    # recipes = db.session.execute(query).unique().all()
     recipes = Recipe.query.all()
     return render_template("main/index.html", posts=recipes)
 
-@bp.route("/profile")
-def profile():
-    user = model.User(id=2, email="john@example.com", password="password", name="JohnDoe")
-    posts = [
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-    ]
-    return render_template("main/profile.html", posts=posts)
-    
-# @bp.route('/profile/<int:user_id>')
-# def profile(user_id):
-#     # Fetch the user and all their associated recipes from the database
-#     # user = User.query.filter_by(id=user_id).first()
-#     user = db.session.get(model.User, user_id)
+@bp.route('/profile/<int:user_id>')
+def profile(user_id):
+    # Fetch the user and all their associated recipes from the database
+    query = db.select(User).where(User.id == user_id)
+    user = db.session.execute(query).scalar_one_or_none()
 
-#     if user:
-#         user_recipes = user.recipes.all()  # Fetch all associated recipes
-#         return render_template('main/profile.html', user=user, posts=user_recipes)
-#     else:
-#         # Handle the case when the user is not found
-#         abort(404, "User id {} doesn't exit.".format(user_id))
+    if user:
+        query2 = db.select(Recipe).filter(Recipe.user_id == user.id)
+        recipes = db.session.execute(query2).unique().all()
+        return render_template('main/profile.html', user=user, recipes=recipes)
+    else:
+        # Handle the case when the user is not found
+        abort(404, "User id {} doesn't exist.".format(user_id))
 
 
 @bp.route("/bookmark")

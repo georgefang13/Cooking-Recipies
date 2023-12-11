@@ -1,7 +1,7 @@
 <div class="recipe-view">
     <div class="recipe-box">
         <div class="recipe-header">
-            <a href="{{ url_for('main.profile')}}" class="recipe-user">
+            <a href="{{ url_for('main.profile', user_id=post.user.id)}}" class="recipe-user">
                 <h3>{{ post.user.name }}</h3>
             </a>
             <span class="recipe-title">
