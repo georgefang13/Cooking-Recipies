@@ -17,6 +17,19 @@
             Recipe Rating Here
         </span>
         <!-- BOOKMARKS BUTTON / TAB, ONLY IF USER IS AUTHORIZED -->
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('main.toggle_bookmark', recipe_id=post.id) }}">
+                <button type="button" action='/toggle_bookmark' method="post" onclick="toggleBookmark(this)">Bookmark</button>
+            </a>
+        {% else %}
+            <a href="{{ url_for('auth.login')}}">
+                <button type="button">To Bookmark, Log In</button>
+            </a>
+            <a href="{{ url_for('auth.signup')}}">
+                Don't have an account? Sign up!
+            </a>
+        {% endif %}
+        
     </header>
     <section class="recipe-specs">
         <span>Serving Size: {{ post.person_count }}</span>

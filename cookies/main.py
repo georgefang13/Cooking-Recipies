@@ -34,36 +34,35 @@ def bookmark(user_id):
     return render_template("main/bookmark.html", user=user, posts=bookmarked)
 
 # controller for handling bookmarking a specific recipe
-# @bp.route('/bookmark/<int:recipe_id>')
-# def add_bookmark(recipe_id):
+@bp.route('/bookmark/<int:recipe_id>', methods=['POST'])
+def toggle_bookmark(recipe_id):
+    # Check if the user is logged in
+    if not current_user.is_authenticated:
+        abort(403, "You must be logged in to bookmark a recipe.")
 
-#     # Check if the user is logged in
-#     if not current_user.is_authenticated:
-#         abort(403, "You must be logged in to bookmark a recipe.")
+    # Retrieve the recipe from the database
+    recipe = Recipe.query.get(recipe_id)
 
-#     # Retrieve the recipe from the database
-#     recipe = Recipe.query.get(recipe_id)
+    # Check if the recipe exists
+    if not recipe:
+        abort(404, "Recipe not found.")
 
-#     # Check if the recipe exists
-#     if not recipe:
-#         abort(404, "Recipe not found.")
+    # Check if the user has already bookmarked the recipe
+    bookmark = Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe.id).first()
 
-#     # Check if the user has already bookmarked the recipe
-#     if current_user in recipe.bookmarks:
-#         #unbookmark, i.e. remove from current_user.bookmarks?
-#         #db.session.remove()
-#         flash('Recipe is already bookmarked.', 'info')
-#         return redirect(url_for(f'main.{source_page}'))
-
-#     # Create a new bookmark and associate it with the current user and recipe
-#     bookmark = Bookmark(user_id=current_user.id, recipe_id=recipe.id)
-
-#     # Add the bookmark to the database
-#     db.session.add(bookmark)
-#     db.session.commit()
-
-#     flash('Recipe bookmarked successfully!', 'success')
-#     return redirect(url_for(f'main.{source_page}'))
+    if bookmark:
+        # If already bookmarked, unbookmark it
+        db.session.delete(bookmark)
+        flash('Recipe removed from bookmarks.', 'success')
+    else:
+        # If not bookmarked, bookmark it
+        bookmark = Bookmark(user=current_user, recipe=recipe)
+        db.session.add(bookmark)
+        flash('Recipe bookmarked!', 'success')
+        
+    db.session.commit()
+    return redirect(url_for('main.recipe', recipe_id=recipe.id))
+    # return render_template('main/recipe.html')
 
 # <!-- In your recipe template -->
 # <a href="{{ url_for('main.bookmark_recipe', recipe_id=post.id) }}">

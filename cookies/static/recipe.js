@@ -31,3 +31,12 @@ function removeStep(button) {
     const stepContainer = document.querySelector("#step-container");
     stepContainer.removeChild(button.parentNode);
 }
+
+function toggleBookmark(button) {
+    //  the button starts as unbookmarked, when pressed it changes to bookmarked, and vice versa
+    if (button.textContent === 'Bookmark') {
+        button.textContent = 'Unbookmark';
+    } else {
+        button.textContent = 'Bookmark';
+    }
+}
