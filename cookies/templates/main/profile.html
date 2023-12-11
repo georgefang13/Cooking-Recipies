@@ -7,13 +7,12 @@
             <!-- CHANGE TO BE PROPER USER IMAGE -->
             <img class="profile-photo" src="static/testimg.jpg">
         </div>
-        <!-- TO FIX: how do we show another user's name? If they are not the current user, i.e. I am not viewing my own prof -->
         <h2>
             {{ user.name }}
         </h2>
         <div>
             <!-- IMPLEMENT: link goes to bookmarks view, which is exactly the same as user but with only bookmarked recipes -->
-            <a href="{{ url_for('main.bookmark')}}">
+            <a href="{{ url_for('main.bookmark', user_id=user.id)}}">
                 <button type="button">Bookmarked Recipes</button>
             </a>
             {% if current_user.is_authenticated %}

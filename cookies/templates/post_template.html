@@ -12,6 +12,7 @@
             <span id="recipe-rating">
                 Recipe Rating Here (still need to do this)
             </span>
+            <!-- BOOKMARKS BUTTON / TAB, ONLY IF USER IS AUTHORIZED -->
         </div>
 
         <div class="recipe-specs">
@@ -22,15 +23,17 @@
 
         <div id="recipe-details">
             <!-- Recipe Image and Description -->
-            <div class="recipe-image">
-                <img src="static/testimg.jpg">
-            </div>
+            
+            {% for photo in post.photos %}
+                <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="photo">
+            {% endfor %}
             <p class="recipe-description">
                 Description: {{ post.description }}
             </p>
         </div>
     
         <!-- Metadata (Hidden) -->
+        <!-- JINJA NEEDS TO BE UPDATED -->
         <div class="metadata"> 
             <span class="author">@username</span>
             <span class="date">timestamp</span>

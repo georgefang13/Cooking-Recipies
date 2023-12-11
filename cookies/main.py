@@ -1,10 +1,11 @@
 import datetime
 from os import abort
 import dateutil.tz
-from flask import Blueprint, render_template, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, render_template, request, redirect, url_for, flash, current_app
 import flask_login
 from flask_login import current_user
-from .model import User, Recipe, QuantifiedIngredient, Step, Ingredient
+from .model import User, Recipe, QuantifiedIngredient, Step, Ingredient, Bookmark
+from pathlib import Path
 
 from . import db
 from . import model
@@ -13,23 +14,6 @@ bp = Blueprint("main", __name__)
 
 @bp.route("/")
 def index():
-    # users_with_recipes = User.query.options(db.joinedload('recipes')).all()
-    # return render_template('index.html', users_with_recipes=users_with_recipes)
-    # user = 
-    # user = model.User(id=1, email="mary@example.com", password="password", name="mary")
-    # posts = [
-    #     model.Recipe(
-    #         id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-    #     ),
-    #     model.Recipe(
-    #         id=1, user=user, title="Another Food Title", person_count=1, cooking_time=1
-    #     ),
-    #     model.Recipe(
-    #         id=1, user=user, title="Yet another Food Title", person_count=1, cooking_time=1
-    #     )
-    # ]
-    # query = db.select(model.Recipe)
-    # recipes = db.session.execute(query).unique().all()
     recipes = Recipe.query.all()
     return render_template("main/index.html", posts=recipes)
 
@@ -39,64 +23,63 @@ def profile(user_id):
     user = User.query.filter_by(id=user_id).one()
 
     # Access all recipes for the user using the relationship attribute
-    user_recipes = list(user.recipes)
-    return render_template('main/profile.html', user=user, posts=user_recipes)
+    recipes = list(user.recipes)
+    return render_template('main/profile.html', user=user, posts=recipes)
 
-    # Fetch the user and all their associated recipes from the database
-    # query = db.select(User).where(User.id == user_id)
-    # user = db.session.execute(query).scalar_one_or_none()
+#controller for accessing a user's bookmarked recipes
+@bp.route("/bookmark/<int:user_id>")
+def bookmark(user_id):
+    user = User.query.filter_by(id=user_id.one())
+    bookmarked = list(user.bookmarks)
+    return render_template("main/bookmark.html", posts=bookmarked)
 
-    # # if user:
-    # recipes = Recipe.query.filter_by(id=user_id)
-    #     # query2 = db.select(Recipe).filter(Recipe.user_id == user.id)
-    #     # recipes = db.session.execute(query2).unique().all()
-    # return render_template('main/profile.html', user=user, posts=recipes)
-    # # else:
-    #     # Handle the case when the user is not found
-    #     abort(404, "User id {} doesn't exist.".format(user_id))
+# controller for handling bookmarking a specific recipe
+# @bp.route('/bookmark/<int:recipe_id>')
+# def add_bookmark(recipe_id):
 
+#     # Check if the user is logged in
+#     if not current_user.is_authenticated:
+#         abort(403, "You must be logged in to bookmark a recipe.")
 
-@bp.route("/bookmark")
-@flask_login.login_required     #must be the user in order to view bookmarked recipes
-def bookmark():
-    user = model.User(id=3, email="john@example.com", password="password", name="JohnDoe")
-    posts = [
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-    ]
-    return render_template("main/bookmark.html", posts=posts)
+#     # Retrieve the recipe from the database
+#     recipe = Recipe.query.get(recipe_id)
+
+#     # Check if the recipe exists
+#     if not recipe:
+#         abort(404, "Recipe not found.")
+
+#     # Check if the user has already bookmarked the recipe
+#     if current_user in recipe.bookmarks:
+#         #unbookmark, i.e. remove from current_user.bookmarks?
+#         #db.session.remove()
+#         flash('Recipe is already bookmarked.', 'info')
+#         return redirect(url_for(f'main.{source_page}'))
+
+#     # Create a new bookmark and associate it with the current user and recipe
+#     bookmark = Bookmark(user_id=current_user.id, recipe_id=recipe.id)
+
+#     # Add the bookmark to the database
+#     db.session.add(bookmark)
+#     db.session.commit()
+
+#     flash('Recipe bookmarked successfully!', 'success')
+#     return redirect(url_for(f'main.{source_page}'))
+
+# <!-- In your recipe template -->
+# <a href="{{ url_for('main.bookmark_recipe', recipe_id=post.id) }}">
+#     <button type="button">Bookmark Recipe</button>
+# </a>
+
+# # <!-- In your main page template -->
+# <a href="{{ url_for('main.bookmark_recipe', recipe_id=post.id, source_page='index') }}">
+#     <button type="button">Bookmark Recipe</button>
+# </a>
+###################
 
 @bp.route("/recipe/<int:recipe_id>")
 def recipe(recipe_id):
-    # query = db.select(Recipe).where(Recipe.id == recipe_id)
-    # recipe = db.session.execute(query).unique().scalar_one_or_none()
-
     recipe = Recipe.query.filter_by(id=recipe_id).one()
-
     return render_template('main/recipe.html', user=recipe.user, post=recipe)
-
-    # else:
-    #     # Handle the case when the user is not found
-    #     abort(404, "User id {} doesn't exist.".format(recipe_id))
-    # recipe = Recipe.query.filter_by(recipe_id=recipe.id)
-    
-    # query = db.select(recipe).where(recipe_id == recipe.id)
-    # recipe = db.session.execute(query).scalar_one_or_none()
-    # show one recipe in full
-    # user = model.User(id=4, email="test@example.com", password="password", name="testUser")
-    # posts = [
-    #     model.Recipe(
-    #         id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-    #     ),
-    # ]
-    # return render_template("main/recipe.html", post=recipe)
 
 @bp.route("/new_recipe", methods=['GET', 'POST'])
 @flask_login.login_required
@@ -107,6 +90,7 @@ def new_recipe():
         description = request.form.get('recipe-description')
         cook_time = request.form.get('cook-time')
         num_people = request.form.get('num-people')
+        # timestamp = datetime.datetime.now(dateutil.tz.tzlocal())
 
         # Create a new recipe and link it to the current user
         recipe = Recipe(title=title, user=current_user, description=description, cooking_time=cook_time, person_count=num_people)
@@ -142,6 +126,38 @@ def new_recipe():
         db.session.add(recipe)
         db.session.commit()
 
+        # Handle file upload (photo)
+        uploaded_file = request.files['photo']
+        if uploaded_file.filename != '':
+            content_type = uploaded_file.content_type
+            if content_type == "image/png":
+                file_extension = "png"
+            elif content_type == "image/jpeg":
+                file_extension = "jpg"
+            elif content_type == "image/gif":
+                file_extension = "gif"
+            else:
+                abort(400, f"Unsupported file type {content_type}")
+                # might need to add some sort of redirect here
+
+            # Create a new Photo object and store it into the database
+            photo = model.Photo(
+                user=flask_login.current_user,
+                recipe=recipe,
+                file_extension=file_extension
+            )
+            db.session.add(photo)
+            db.session.commit()
+
+            # Save the photo to the photos folder
+            path = (
+                Path(current_app.root_path)
+                / "static"
+                / "photos"
+                / f"photo-{photo.id}.{file_extension}"
+            )
+            uploaded_file.save(path)
+
         # Load the user explicitly to avoid DetachedInstanceError
         db.session.refresh(recipe.user)
 
@@ -151,28 +167,3 @@ def new_recipe():
     return render_template("main/new_recipe.html")
 
 #need a controller here to recieve form
-
-# Handle file upload (photo)
-        # if 'photo' in request.files:
-        #     photo = request.files['photo']
-        #     if photo.filename != '':
-        #         # Check if the file extension is allowed
-        #         file_extension = photo.filename.rsplit('.', 1)[1].lower()
-        #         if file_extension not in ALLOWED_EXTENSIONS:
-        #             flash(f"Unsupported file type: {file_extension}", 'error')
-        #             return redirect(request.url)
-
-        #         # Save the photo to the uploads folder
-        #         filename = f"photo-{recipe.id}.{file_extension}"
-        #         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        #         photo.save(file_path)
-
-        #         # Create a new photo instance
-        #         new_photo = Photo(file_extension=file_extension)
-        #         new_photo.recipe = recipe  # Link the photo to the recipe
-
-        #         # Add the photo to the database
-        #         db.session.add(new_photo)
-        #         db.session.commit()
-
-        #         flash('Photo uploaded successfully!', 'success')
