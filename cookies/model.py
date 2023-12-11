@@ -51,7 +51,7 @@ class Ingredient(db.Model):
     name = db.Column(db.String(50), nullable=False)
 
     # One-to-Many relationship between ingredients and quantified ingredients
-    quantified_ingredients = db.relationship('QuantifiedIngredient', back_populates='ingredient', lazy=True)
+    quantified_ingredients = db.relationship('QuantifiedIngredient', back_populates='ingredient')
 
 class QuantifiedIngredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)

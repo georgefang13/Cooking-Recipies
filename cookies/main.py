@@ -42,7 +42,7 @@ def profile(user_id):
     if user:
         query2 = db.select(Recipe).filter(Recipe.user_id == user.id)
         recipes = db.session.execute(query2).unique().all()
-        return render_template('main/profile.html', user=user, recipes=recipes)
+        return render_template('main/profile.html', user=user, posts=recipes)
     else:
         # Handle the case when the user is not found
         abort(404, "User id {} doesn't exist.".format(user_id))
