@@ -41,7 +41,7 @@ with app.app_context():
     queried_user = User.query.filter_by(email="george.fang@duke.edu").first()
 
 if queried_user:
-    print(f"User found: {queried_user}")
+    print(f"User found: {queried_user.name}")
 else:
     print("User not found.")
 
@@ -53,7 +53,7 @@ from cookies.model import Recipe
 app = create_app()
 
 with app.app_context():
-    queried_recipe = Recipe.query.filter_by(title="Bread Test").first()
+    queried_recipe = Recipe.query.filter_by(title="Test1").first()
 
 if queried_recipe:
     print(f"Recipe found: {queried_recipe}")

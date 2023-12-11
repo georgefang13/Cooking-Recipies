@@ -81,7 +81,7 @@ def new_recipe():
         num_people = request.form.get('num-people')
 
         # Create a new recipe and link it to the current user
-        recipe = Recipe(title=title, description=description, cooking_time=cook_time, person_count=num_people, user=current_user)
+        recipe = Recipe(title=title, description=description, cooking_time=cook_time, person_count=num_people)
         recipe.user = current_user  # Set the relationship here
 
         # Process ingredients and quantified ingredients
@@ -113,6 +113,9 @@ def new_recipe():
         # Add the recipe to the database
         db.session.add(recipe)
         db.session.commit()
+
+        # Load the user explicitly to avoid DetachedInstanceError
+        db.session.refresh(recipe.user)
 
         flash('Recipe created successfully!', 'success')
         return redirect(url_for('main.index'))
