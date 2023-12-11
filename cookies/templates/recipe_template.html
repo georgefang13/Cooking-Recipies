@@ -25,7 +25,9 @@
     <section id="recipe-details">
         <!-- Here, we have an image to the left and a description of the recipe to the right -->
         <div class="recipe-image">
-            <img src="static/testimg.jpg">
+            {% for photo in post.photos %}
+                <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="photo">
+            {% endfor %}
         </div>
         <p class="recipe-description">
             Description: {{ post.description }}

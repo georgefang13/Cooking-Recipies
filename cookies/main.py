@@ -29,9 +29,9 @@ def profile(user_id):
 #controller for accessing a user's bookmarked recipes
 @bp.route("/bookmark/<int:user_id>")
 def bookmark(user_id):
-    user = User.query.filter_by(id=user_id.one())
+    user = User.query.filter_by(id=user_id).one()
     bookmarked = list(user.bookmarks)
-    return render_template("main/bookmark.html", posts=bookmarked)
+    return render_template("main/bookmark.html", user=user, posts=bookmarked)
 
 # controller for handling bookmarking a specific recipe
 # @bp.route('/bookmark/<int:recipe_id>')

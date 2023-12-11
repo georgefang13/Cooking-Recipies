@@ -23,7 +23,6 @@
 
         <div id="recipe-details">
             <!-- Recipe Image and Description -->
-            
             {% for photo in post.photos %}
                 <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="photo">
             {% endfor %}
