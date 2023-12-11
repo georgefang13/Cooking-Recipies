@@ -53,7 +53,7 @@ from cookies.model import Recipe
 app = create_app()
 
 with app.app_context():
-    queried_recipe = Recipe.query.filter_by(title="Pumpkin test").first()
+    queried_recipe = Recipe.query.filter_by(title="Bread Test").first()
 
 if queried_recipe:
     print(f"Recipe found: {queried_recipe}")
@@ -61,6 +61,7 @@ if queried_recipe:
     print(f"Description: {queried_recipe.description}")
     print(f"Cooking Time: {queried_recipe.cooking_time}")
     print(f"Person Count: {queried_recipe.person_count}")
+    print(f"User: {queried_recipe.user}")
     print(f"Quantified Ingredients: {queried_recipe.quantified_ingredients}")
     print(f"Steps: {queried_recipe.steps}")
 else:

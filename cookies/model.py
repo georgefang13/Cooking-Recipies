@@ -8,16 +8,16 @@ class User(flask_login.UserMixin, db.Model):
     name = db.Column(db.String(64), nullable=False)
 
     # # One-to-Many relationship between users and recipes
-    recipes = db.relationship('Recipe', back_populates='user', lazy=True)
+    recipes = db.relationship('Recipe', back_populates='user')
 
     # One-to-Many relationship between users and ratings
-    ratings = db.relationship('Rating', back_populates='user', lazy=True)
+    ratings = db.relationship('Rating', back_populates='user')
 
     # One-to-Many relationship between users and bookmarks
-    bookmarks = db.relationship('Bookmark', back_populates='user', lazy=True)
+    bookmarks = db.relationship('Bookmark', back_populates='user')
 
     # One-to-Many relationship between users and photos
-    photos = db.relationship('Photo', back_populates='user', lazy=True)
+    photos = db.relationship('Photo', back_populates='user')
 
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
