@@ -35,17 +35,25 @@ def index():
 
 @bp.route('/profile/<int:user_id>')
 def profile(user_id):
-    # Fetch the user and all their associated recipes from the database
-    query = db.select(User).where(User.id == user_id)
-    user = db.session.execute(query).scalar_one_or_none()
+    # Query for the user based on the user_id
+    user = User.query.filter_by(id=user_id).one()
 
-    if user:
-        query2 = db.select(Recipe).filter(Recipe.user_id == user.id)
-        recipes = db.session.execute(query2).unique().all()
-        return render_template('main/profile.html', user=user, posts=recipes)
-    else:
-        # Handle the case when the user is not found
-        abort(404, "User id {} doesn't exist.".format(user_id))
+    # Access all recipes for the user using the relationship attribute
+    user_recipes = list(user.recipes)
+    return render_template('main/profile.html', user=user, posts=user_recipes)
+
+    # Fetch the user and all their associated recipes from the database
+    # query = db.select(User).where(User.id == user_id)
+    # user = db.session.execute(query).scalar_one_or_none()
+
+    # # if user:
+    # recipes = Recipe.query.filter_by(id=user_id)
+    #     # query2 = db.select(Recipe).filter(Recipe.user_id == user.id)
+    #     # recipes = db.session.execute(query2).unique().all()
+    # return render_template('main/profile.html', user=user, posts=recipes)
+    # # else:
+    #     # Handle the case when the user is not found
+    #     abort(404, "User id {} doesn't exist.".format(user_id))
 
 
 @bp.route("/bookmark")
@@ -65,15 +73,30 @@ def bookmark():
     ]
     return render_template("main/bookmark.html", posts=posts)
 
-@bp.route("/recipe")
-def recipe():
-    user = model.User(id=4, email="test@example.com", password="password", name="testUser")
-    posts = [
-        model.Recipe(
-            id=1, user=user, title="Food Title", person_count=1, cooking_time=1
-        ),
-    ]
-    return render_template("main/recipe.html", posts=posts)
+@bp.route("/recipe/<int:recipe_id>")
+def recipe(recipe_id):
+    # query = db.select(Recipe).where(Recipe.id == recipe_id)
+    # recipe = db.session.execute(query).unique().scalar_one_or_none()
+
+    recipe = Recipe.query.filter_by(id=recipe_id).one()
+
+    return render_template('main/recipe.html', user=recipe.user, post=recipe)
+
+    # else:
+    #     # Handle the case when the user is not found
+    #     abort(404, "User id {} doesn't exist.".format(recipe_id))
+    # recipe = Recipe.query.filter_by(recipe_id=recipe.id)
+    
+    # query = db.select(recipe).where(recipe_id == recipe.id)
+    # recipe = db.session.execute(query).scalar_one_or_none()
+    # show one recipe in full
+    # user = model.User(id=4, email="test@example.com", password="password", name="testUser")
+    # posts = [
+    #     model.Recipe(
+    #         id=1, user=user, title="Food Title", person_count=1, cooking_time=1
+    #     ),
+    # ]
+    # return render_template("main/recipe.html", post=recipe)
 
 @bp.route("/new_recipe", methods=['GET', 'POST'])
 @flask_login.login_required

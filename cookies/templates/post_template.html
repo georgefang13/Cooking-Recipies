@@ -5,7 +5,7 @@
                 <h3> {{ post.user.name }}</h3>
             </a>
             <span class="recipe-title">
-                <a href="{{ url_for('main.recipe')}}">
+                <a href="{{ url_for('main.recipe', recipe_id=post.id)}}">
                     <h2>{{ post.title }}</h2>
                 </a>
             </span>

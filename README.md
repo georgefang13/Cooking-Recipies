@@ -57,11 +57,11 @@ with app.app_context():
 
 if queried_recipe:
     print(f"Recipe found: {queried_recipe}")
+    print(f"ID: {queried_recipe.id}")
     print(f"Title: {queried_recipe.title}")
     print(f"Description: {queried_recipe.description}")
     print(f"Cooking Time: {queried_recipe.cooking_time}")
     print(f"Person Count: {queried_recipe.person_count}")
-    print(f"User: {queried_recipe.user}")
     print(f"Quantified Ingredients: {queried_recipe.quantified_ingredients}")
     print(f"Steps: {queried_recipe.steps}")
 else:

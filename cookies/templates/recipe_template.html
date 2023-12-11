@@ -4,13 +4,13 @@
             make title a link to the recipe view
             make the username a link to their profile view  -->
         <span class="recipe-title">
-            <a href="{{ url_for('main.recipe')}}">
+            <a href="{{ url_for('main.recipe', recipe_id=post.id)}}">
                 <h2 class="recipe-title">Recipe Title</h2>
             </a>
         </span>
         <span>
-            <a href="{{ url_for('main.profile', user_id=user.id)}}" class="recipe-user">
-                <h3>Creator Username</h3>
+            <a href="{{ url_for('main.profile', user_id=post.user.id)}}" class="recipe-user">
+                <h3>{{ user.name }}</h3>
             </a>
         </span>
         <span id="recipe-rating">
