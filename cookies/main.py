@@ -86,7 +86,7 @@ def new_recipe():
         num_people = request.form.get('num-people')
 
         # Create a new recipe and link it to the current user
-        recipe = Recipe(title=title, description=description, cooking_time=cook_time, person_count=num_people)
+        recipe = Recipe(title=title, user=current_user, description=description, cooking_time=cook_time, person_count=num_people)
         recipe.user = current_user  # Set the relationship here
 
         # Process ingredients and quantified ingredients
