@@ -1,39 +1,39 @@
 <div class="recipe-view">
-    <header id="recipeHeader">
-        <!-- TO IMPLEMENT:
-            make title a link to the recipe view
-            make the username a link to their profile view  -->
-        <span class="recipe-title">
-            <a href="{{ url_for('main.recipe')}}">
-                <h2 class="recipe-title">Recipe Title</h2>
-            </a>
-        </span>
-        <span>
+    <div class="recipe-box">
+        <div class="recipe-header">
             <a href="{{ url_for('main.profile')}}" class="recipe-user">
                 <h3>Creator Username</h3>
             </a>
-        </span>
-        <span id="recipe-rating">
-            Recipe Rating Here
-        </span>
-    </header>
-    <section class="recipe-specs">
-        <span>Number of People it is for</span>
-        <span>Cook Time?</span>
-    </section>
-    <section id="recipe-details">
-        <!-- Here, we have an image to the left and a description of the recipe to the right -->
-        <div class="recipe-image">
-            <img src="static/testimg.jpg">
+            <span class="recipe-title">
+                <a href="{{ url_for('main.recipe')}}">
+                    <h2>Recipe Title</h2>
+                </a>
+            </span>
+            <span id="recipe-rating">
+                Recipe Rating Here
+            </span>
         </div>
-        <p class="recipe-description">
-            Recipe description paragraph goes here
-        </p>
-    </section>
+
+        <div class="recipe-specs">
+            <!-- Recipe Specifications like Number of People and Cook Time -->
+            <span>Number of People it is for</span>
+            <span>Cook Time?</span>
+        </div>
+
+        <div id="recipe-details">
+            <!-- Recipe Image and Description -->
+            <div class="recipe-image">
+                <img src="static/testimg.jpg">
+            </div>
+            <p class="recipe-description">
+                Recipe description paragraph goes here
+            </p>
+        </div>
     
-    <!-- "metadata" should be hidden -->
-    <div class="metadata"> 
-        <span class="author">@username</span>
-        <span class="date">timestamp</span>
+        <!-- Metadata (Hidden) -->
+        <div class="metadata"> 
+            <span class="author">@username</span>
+            <span class="date">timestamp</span>
+        </div>
     </div>
 </div>
