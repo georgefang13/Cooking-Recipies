@@ -14,7 +14,15 @@
             </a>
         </span>
         <span id="recipe-rating">
-            Recipe Rating Here
+            <div class="rating-section">
+                <form action="{{ url_for('main.vote', recipe_id=post.id, vote_type='up') }}" method="post">
+                    <button type="submit">Up</button>
+                </form>
+                <span>{{ post.ratings|sum(attribute='value') }}</span>
+                <form action="{{ url_for('main.vote', recipe_id=post.id, vote_type='down') }}" method="post">
+                    <button type="submit">Down</button>
+                </form>
+            </div>
         </span>
         <!-- BOOKMARKS BUTTON / TAB, ONLY IF USER IS AUTHORIZED -->
         {% if current_user.is_authenticated %}

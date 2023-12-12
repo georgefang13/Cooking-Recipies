@@ -12,7 +12,7 @@
                 </a>
             </span>
             <span id="recipe-rating">
-                Recipe Rating Here (still need to do this)
+                Rating: {{ post.ratings|sum(attribute='value') }}
             </span>
         </div>
 

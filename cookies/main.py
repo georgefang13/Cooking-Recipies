@@ -4,7 +4,7 @@ import dateutil.tz
 from flask import Blueprint, render_template, render_template, request, redirect, url_for, flash, current_app
 import flask_login
 from flask_login import current_user
-from .model import User, Recipe, QuantifiedIngredient, Step, Ingredient, Bookmark
+from .model import User, Recipe, QuantifiedIngredient, Step, Ingredient, Bookmark, Rating
 from pathlib import Path
 
 from . import db
@@ -60,55 +60,8 @@ def bookmark_page(user_id):
         recipes.append(bookmark.recipe)
     return render_template("main/bookmark.html", user=user, posts=recipes)
 
-# # controller for handling bookmarking a specific recipe
-# @bp.route('/bookmark/<int:recipe_id>', methods=['POST'])
-# def toggle_bookmark(recipe_id):
-#     # Check if the user is logged in
-#     if not current_user.is_authenticated:
-#         abort(403, "You must be logged in to bookmark a recipe.")
-
-#     # Retrieve the recipe from the database
-#     recipe = Recipe.query.get(recipe_id)
-
-#     # Check if the recipe exists
-#     if not recipe:
-#         abort(404, "Recipe not found.")
-
-#     # Check if the user has already bookmarked the recipe
-#     bookmark = Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe.id).first()
-
-#     if bookmark:
-#         # If already bookmarked, unbookmark it
-#         db.session.delete(bookmark)
-#         flash('Recipe removed from bookmarks.', 'success')
-#     else:
-#         # If not bookmarked, bookmark it
-#         bookmark = Bookmark(user=current_user, recipe=recipe)
-#         db.session.add(bookmark)
-#         flash('Recipe bookmarked!', 'success')
-        
-#     db.session.commit()
-#     # return redirect(url_for('main.recipe', recipe_id=recipe.id))
-#     return render_template('main/recipe.html', recipe_id=recipe.id)
-
-# <!-- In your recipe template -->
-# <a href="{{ url_for('main.bookmark_recipe', recipe_id=post.id) }}">
-#     <button type="button">Bookmark Recipe</button>
-# </a>
-###################
-
 @bp.route("/recipe/<int:recipe_id>")
 def recipe(recipe_id):
-    # recipe = Recipe.query.filter_by(id=recipe_id).one()
-    # # send 'bookmark' that tells html which text to display
-    # #user authentication handled in the HTML Jinja to make sure user is authenticated
-    # if current_user.is_authenticated:
-    #     query = db.select(Bookmark).where(Bookmark.recipe_id == recipe.id).where(Bookmark.user == current_user)
-    #     bookmark = db.session.execute(query).scalars().one_or_none()
-    #     if bookmark:
-    #         bookmark_button = "bookmarked"
-    #     else:
-    #         bookmark_button = "bookmark"
     recipe = Recipe.query.filter_by(id=recipe_id).one()
 
     bookmark_button = "bookmark"  # Default state
@@ -119,21 +72,6 @@ def recipe(recipe_id):
         if bookmark:
             bookmark_button = "bookmarked"
     return render_template('main/recipe.html', user=recipe.user, post=recipe, bookmark_button=bookmark_button)
-
-# @bp.route("/vote/<int:recipe_id>/<string:vote_type>")
-# def vote(recipe_id, vote_type):
-#     recipe = next((r for r in recipes if r['id'] == recipe_id), None)
-
-#     if recipe and session.get('voted_recipe_id') != recipe_id:
-#         if vote_type == 'upvote':
-#             recipe['votes'] += 1
-
-#         # Store the voted recipe ID in the session to prevent multiple votes
-#         session['voted_recipe_id'] = recipe_id
-
-#     return redirect(url_for('index'))
-
-
 
 @bp.route("/new_recipe", methods=['GET', 'POST'])
 @flask_login.login_required
@@ -220,4 +158,22 @@ def new_recipe():
 
     return render_template("main/new_recipe.html")
 
-#need a controller here to recieve form
+@bp.route("/vote/<int:recipe_id>/<string:vote_type>", methods=['POST'])
+@flask_login.login_required
+def vote(recipe_id, vote_type):
+    # Check if user already voted on this recipe
+    existing_vote = Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
+
+    if existing_vote:
+        if existing_vote.value == 1 and vote_type == 'down':
+            existing_vote.value = -1
+        elif existing_vote.value == -1 and vote_type == 'up':
+            existing_vote.value = 1
+    else:
+        # Add new vote
+        vote_value = 1 if vote_type == 'up' else -1
+        new_vote = Rating(user_id=current_user.id, recipe_id=recipe_id, value=vote_value)
+        db.session.add(new_vote)
+
+    db.session.commit()
+    return redirect(url_for('main.recipe', recipe_id=recipe_id))
