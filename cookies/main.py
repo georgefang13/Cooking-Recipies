@@ -31,7 +31,8 @@ def profile(user_id):
 @flask_login.login_required
 def bookmark(recipe_id):
     recipe = db.session.get(Recipe, recipe_id)
-    bookmark = Bookmark(user=current_user, recipe=recipe)
+    user = flask_login.current_user
+    bookmark = Bookmark(user=user, recipe=recipe)
     db.session.add(bookmark)
     db.session.commit()
     return redirect(url_for('main.recipe', recipe_id=recipe.id))
@@ -52,7 +53,11 @@ def unbookmark(recipe_id):
 def bookmark_page(user_id):
     user = User.query.filter_by(id=user_id).one()
     bookmarked = list(user.bookmarks)
-    return render_template("main/bookmark.html", user=user, posts=bookmarked)
+    # for each bookmark in bookmarked, add bookmark.recipe to a list
+    recipes = []
+    for bookmark in bookmarked:
+        recipes.append(bookmark.recipe)
+    return render_template("main/bookmark.html", user=user, posts=recipes)
 
 # # controller for handling bookmarking a specific recipe
 # @bp.route('/bookmark/<int:recipe_id>', methods=['POST'])
@@ -93,17 +98,41 @@ def bookmark_page(user_id):
 
 @bp.route("/recipe/<int:recipe_id>")
 def recipe(recipe_id):
+    # recipe = Recipe.query.filter_by(id=recipe_id).one()
+    # # send 'bookmark' that tells html which text to display
+    # #user authentication handled in the HTML Jinja to make sure user is authenticated
+    # if current_user.is_authenticated:
+    #     query = db.select(Bookmark).where(Bookmark.recipe_id == recipe.id).where(Bookmark.user == current_user)
+    #     bookmark = db.session.execute(query).scalars().one_or_none()
+    #     if bookmark:
+    #         bookmark_button = "bookmarked"
+    #     else:
+    #         bookmark_button = "bookmark"
     recipe = Recipe.query.filter_by(id=recipe_id).one()
-    # send 'bookmark' that tells html which text to display
-    #user authentication handled in the HTML Jinja to make sure user is authenticated
+
+    bookmark_button = "bookmark"  # Default state
+
     if current_user.is_authenticated:
-        query = db.select(Bookmark).where(recipe_id == recipe.id).where(current_user == flask_login.current_user)
-        bookmark = db.session.execute(query).scalars().one_or_none()
+        # Check if the current user has bookmarked this specific recipe
+        bookmark = Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
         if bookmark:
             bookmark_button = "bookmarked"
-        else:
-            bookmark_button = "bookmark"
     return render_template('main/recipe.html', user=recipe.user, post=recipe, bookmark_button=bookmark_button)
+
+# @bp.route("/vote/<int:recipe_id>/<string:vote_type>")
+# def vote(recipe_id, vote_type):
+#     recipe = next((r for r in recipes if r['id'] == recipe_id), None)
+
+#     if recipe and session.get('voted_recipe_id') != recipe_id:
+#         if vote_type == 'upvote':
+#             recipe['votes'] += 1
+
+#         # Store the voted recipe ID in the session to prevent multiple votes
+#         session['voted_recipe_id'] = recipe_id
+
+#     return redirect(url_for('index'))
+
+
 
 @bp.route("/new_recipe", methods=['GET', 'POST'])
 @flask_login.login_required

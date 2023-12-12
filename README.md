@@ -66,3 +66,37 @@ if queried_recipe:
     print(f"Steps: {queried_recipe.steps}")
 else:
     print("Recipe not found.")
+
+
+Check for bookmarks:
+from cookies import create_app, db
+from cookies.model import User
+
+app = create_app()
+
+with app.app_context():
+    queried_user = User.query.filter_by(email="geofang10@gmail.com").first()
+
+if queried_user:
+    print(f"Bookmark found: {queried_user.bookmarks}")
+   
+else:
+    print("User not found.")
+
+from cookies import create_app, db
+from cookies.model import User
+
+app = create_app()
+
+with app.app_context():
+    with db.session.begin(subtransactions=True):
+        queried_user = User.query.filter_by(email="geofang10@gmail.com").first()
+
+    if queried_user:
+        print(f"User found: {queried_user.email}")
+        if queried_user.bookmarks:
+            print(f"Bookmarks found: {queried_user.bookmarks}")
+        else:
+            print("User has no bookmarks.")
+    else:
+        print("User not found.")

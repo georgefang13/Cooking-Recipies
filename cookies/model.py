@@ -32,19 +32,19 @@ class Recipe(db.Model):
 
 
     # One-to-Many relationship between recipes and quantified ingredients
-    quantified_ingredients = db.relationship('QuantifiedIngredient', back_populates='recipe', lazy=False)
+    quantified_ingredients = db.relationship('QuantifiedIngredient', back_populates='recipe')
 
     # One-to-Many relationship between recipes and steps
-    steps = db.relationship('Step', back_populates='recipe', lazy=False)
+    steps = db.relationship('Step', back_populates='recipe')
 
     # One-to-Many relationship between recipes and ratings
-    ratings = db.relationship('Rating', back_populates='recipe', lazy=False)
+    ratings = db.relationship('Rating', back_populates='recipe')
 
     # One-to-Many relationship between recipes and bookmarks
-    bookmarks = db.relationship('Bookmark', back_populates='recipe', lazy=False)
+    bookmarks = db.relationship('Bookmark', back_populates='recipe')
 
     # One-to-Many relationship between recipes and photos
-    photos = db.relationship('Photo', back_populates='recipe', lazy=False)
+    photos = db.relationship('Photo', back_populates='recipe')
 
 class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -94,7 +94,7 @@ class Bookmark(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', back_populates='bookmarks')
 
-    # Many-to-One relationship between bookmarks and recipes
+    # # Many-to-One relationship between bookmarks and recipes
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
     recipe = db.relationship('Recipe', back_populates='bookmarks')
 
