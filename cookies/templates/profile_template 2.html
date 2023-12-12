@@ -1,19 +1,18 @@
-<script type="text/javascript" src="static/recipe.js"></script>
-
 <div class="recipe-view">
     <div class="recipe-box">
         <div class="recipe-header">
-            <a href="{{ url_for('main.profile', user_id=post.user.id)}}" class="recipe-user">
-                <h3> {{ post.user.name }}</h3>
+            <a href="{{ url_for('main.profile', user_id=user.id)}}" class="recipe-user">
+                <h3> {{ user.name }}</h3>
             </a>
             <span class="recipe-title">
                 <a href="{{ url_for('main.recipe', recipe_id=post.id)}}">
-                    <h2>{{ post.title }}</h2>
+                    <h2>Title{{ post.title }}</h2>
                 </a>
             </span>
             <span id="recipe-rating">
-                Rating: {{ post.ratings|sum(attribute='value') }}
+                Recipe Rating Here (still need to do this)
             </span>
+            <!-- BOOKMARKS BUTTON -->
         </div>
 
         <div class="recipe-specs">
@@ -24,16 +23,16 @@
 
         <div id="recipe-details">
             <!-- Recipe Image and Description -->
-            {% for photo in post.photos %}
-                <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="photo">
-            {% endfor %}
+            <div class="recipe-image">
+                <img src="static/testimg.jpg">
+            </div>
             <p class="recipe-description">
                 Description: {{ post.description }}
             </p>
         </div>
     
         <!-- Metadata (Hidden) -->
-        <!-- JINJA NEEDS TO BE UPDATED -->
+        <!-- JINJA NEEDS UPDATING -->
         <div class="metadata"> 
             <span class="author">@username</span>
             <span class="date">timestamp</span>

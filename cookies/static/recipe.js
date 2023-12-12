@@ -3,7 +3,9 @@ function addIngredient() {
     const newIngredient = document.createElement('div');
     newIngredient.classList.add('ingredient');
     newIngredient.innerHTML = `
-        <input type="text" name="ingredient" placeholder="Name, Qty" required>
+        <input type="text" name="ingredients[]" placeholder="Name" required>
+        <input type="text" name="units[]" placeholder="Unit" required>
+        <input type="text" name="quantities[]" placeholder="Quantity" required>
         <button type="button" onclick="removeIngredient(this)">Remove</button>
     `;
     ingredientContainer.appendChild(newIngredient);
@@ -29,3 +31,4 @@ function removeStep(button) {
     const stepContainer = document.querySelector("#step-container");
     stepContainer.removeChild(button.parentNode);
 }
+

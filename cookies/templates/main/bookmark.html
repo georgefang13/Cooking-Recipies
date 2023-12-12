@@ -2,22 +2,23 @@
 
 {% block content %}
     <!-- TO IMPLEMENT: photo in the upper right should be correct -->
-    <header class="profile-header">
-        <div class="profile-picture">
-            <a href="{{ url_for('main.profile')}}">
-                <img class=profile-photo" src="static/testimg.jpg">
-            </a>
+    <header class="profile-view">
+        <div class="profile-photo">
+            <!-- CHANGE TO BE PROPER USER IMAGE -->
+            <img class="profile-photo" src="static/testimg.jpg">
         </div>
+        <h2>
+            {{ user.name }}
+        </h2>
         <div>
-            <h2>Bookmarked</h2>
-        </div>
-        <div>
-            <a href="{{ url_for('main.profile')}}">
-                <h2>Username</h2>
-            </a>
+            <h3>Bookmarked Recipes</h3>
         </div>
     </header>
 
-    <!-- THIS IS ONLY BOOKMARKED RECIPES -->
-    {% include 'posts_template.html' %}
+    <body>
+        {% for post in posts %}
+            {% include 'post_template.html' %}
+        {% endfor %}
+    </body>
+
 {% endblock %}

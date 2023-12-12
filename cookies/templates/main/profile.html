@@ -4,18 +4,23 @@
     <!-- TO IMPLEMENT: photo in the upper right should be correct -->
     <header class="profile-view">
         <div class="profile-photo">
+            <!-- CHANGE TO BE PROPER USER IMAGE -->
             <img class="profile-photo" src="static/testimg.jpg">
         </div>
+        <h2>
+            {{ user.name }}
+        </h2>
         <div>
-            <h2>Username</h2>
-        </div>
-        <div>
-            <!-- IMPLEMENT: link goes to bookmarks view, which is exactly the same as user but with only bookmarked recipes -->
-            <a href="{{ url_for('main.bookmark')}}">
+            <a href="{{ url_for('main.bookmark_page', user_id=user.id)}}">
                 <button type="button">Bookmarked Recipes</button>
             </a>
         </div>
     </header>
 
-    {% include 'posts_template.html' %}
+    <body>
+        {% for post in posts %}
+            {% include 'profile_template.html' %}
+        {% endfor %}
+    </body>
+
 {% endblock %}

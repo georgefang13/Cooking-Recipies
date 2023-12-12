@@ -4,7 +4,7 @@
 
 <script type="text/javascript" src="static/recipe.js"></script>
 
-<form class="new-recipe" method="post" enctype="multipart/form-data">
+<form class="new-recipe" action='/new_recipe' method="post" enctype="multipart/form-data">
     <label for="recipe-title">Enter the recipe title:</label><br>
     <input type="text" id="recipe-title" name="recipe-title" required><br><br>
     <label for="recipe-description">Enter a brief description:</label><br>
@@ -17,7 +17,9 @@
     <label for="ingredients">Add a list of ingredients with corresponding measurements:</label>
     <div id="ingredient-container">
         <div class="recipe-ingredient">
-            <input type="text" name="ingredient" placeholder="Name, Qty" required>
+            <input type="text" name="ingredients[]" placeholder="Name" required>
+            <input type="text" name="units[]" placeholder="Unit" required>
+            <input type="text" name="quantities[]" placeholder="Quantity" required>
             <button type="button" onclick="removeIngredient(this)">Remove</button>
         </div>
     </div>
@@ -37,9 +39,7 @@
     <button type="button" onclick="addStep()">Add Step</button>
     <br><br>
 
-    <input type="file" name="photo" accept="image/jpeg,image/png" required><br><br>
-
-    <!-- <input type="hidden" name="recipe_id" value"> -->
+    <input type="file" name="photo" accept="image/jpeg,image/png,image/gif" required><br><br>
 
     <input type="submit" value="Submit">
 
