@@ -26,10 +26,6 @@
         </span>
         <!-- BOOKMARKS BUTTON / TAB, ONLY IF USER IS AUTHORIZED -->
         {% if current_user.is_authenticated %}
-            <!-- <a href="{{ url_for('main.recipe', recipe_id=post.id) }}"> -->
-            <!-- <form action="/toggle_bookmark" method="POST">
-                <input type="hidden" 
-                <button type="submit">Bookmark</button> -->
             {% if bookmark_button == "bookmarked" %}
                 <form action="{{ url_for('main.unbookmark', recipe_id=post.id) }}" method="post">
                     <input type="submit" value="Unbookmark">
@@ -39,7 +35,6 @@
                     <input type="submit" value="Bookmark">
                 </form>
             {% endif %}
-            <!-- </a> -->
         {% else %}
             <a href="{{ url_for('auth.login')}}">
                 <button type="button">To Bookmark, Log In</button>
@@ -88,11 +83,10 @@
             </ol>
         </p>
     </section>
-    
-    <!-- "metadata" should be hidden -->
+
     <!-- JINJA NEEDS UPDATING -->
     <div class="metadata"> 
-        <span class="author">@username</span>
-        <span class="date">timestamp</span>
+        <span class="author">{{ user.name }}</span>
+        <span class="date">{{ user.timestamp }}</span>
     </div>
 </div>

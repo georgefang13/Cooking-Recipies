@@ -1,51 +1,37 @@
 /* General Styles */
 body {
     font-family: 'Times New Roman', serif;
-    background-color: #f4c9b9; 
-    color: #060708;
+    background-color: #7390ad; 
+    color: #1d273a;
     margin: 0;
     padding: 0;
 }
 
 /* Header Bar */
 header {
-    background-color: #2a2519; 
-    color: #f6f2f2;
+    background-color: #1d273a; 
+    color: #ffffff;
     display: flex;
     justify-content: space-between;
     padding: 0.5em 0; 
-    border-bottom: 3px solid #030304;
+    border-bottom: 3px solid #1d273a;
     width: 100%; 
     margin: 0; 
     box-sizing: border-box; 
 }
 
 header a {
-    color: #0c0c0c;
+    color: #101114;
     text-decoration: none;
     padding: 10px;
     transition: color 0.3s;
 }
 
 header a:hover {
-    color: #fafcff; /* Hover effect */
+    color: #1d273a; /* Hover effect */
 }
 
 /* Base.html Header CSS */
-#nav {
-    background-image: url('/static/cookies-header.jpg'); 
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 0.5em 0;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style-type: none;
-    margin: 0 auto;
-}
-
 #nav {
     background-color: #7390ad;
     padding: 0.5em 0;
@@ -93,7 +79,7 @@ header a:hover {
 }
 
 .recipe-item {
-    background: #b8caec;
+    background: #3e6abb;
     margin-bottom: 15px;
     padding: 15px;
     border-radius: 8px;
