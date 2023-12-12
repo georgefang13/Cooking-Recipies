@@ -42,10 +42,11 @@ def bookmark(recipe_id):
 def unbookmark(recipe_id):
     recipe = db.session.get(Recipe, recipe_id)
     user = flask_login.current_user
-    query = db.select(Bookmark).where(recipe_id == recipe.id).where(user == flask_login.current_user)
-    bookmark = db.session.execute(query).scalars().one_or_none()
-    db.session.delete(bookmark)
-    db.session.commit()
+    # query = db.select(Bookmark).where(recipe_id == recipe.id).where(user == flask_login.current_user)
+    bookmark = Bookmark.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()
+    if bookmark:
+        db.session.delete(bookmark)
+        db.session.commit()
 
     return redirect(url_for("main.recipe", recipe_id=recipe.id))
 
