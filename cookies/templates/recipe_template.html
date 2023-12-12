@@ -3,24 +3,28 @@
         <!-- TO IMPLEMENT:
             make title a link to the recipe view
             make the username a link to their profile view  -->
-        <span class="recipe-title">
-            <a href="{{ url_for('main.recipe', recipe_id=post.id)}}">
-                <h2 class="recipe-title">{{ post.title }}</h2>
-            </a>
-        </span>
-        <span>
-            <a href="{{ url_for('main.profile', user_id=post.user.id)}}" class="recipe-user">
-                <h3>{{ user.name }}</h3>
-            </a>
-        </span>
+            <span class="recipe-user">
+                <a href="{{ url_for('main.profile', user_id=post.user.id) }}">
+                    <h3>{{ user.name }}</h3>
+                </a>
+            </span>
+            <span class="recipe-title">
+                <a href="{{ url_for('main.recipe', recipe_id=post.id) }}">
+                    <h2>{{ post.title }}</h2>
+                </a>
+            </span>
         <span id="recipe-rating">
             <div class="rating-section">
                 <form action="{{ url_for('main.vote', recipe_id=post.id, vote_type='up') }}" method="post">
-                    <button type="submit">Up</button>
+                    <button type="submit">
+                        <img src="/static/up.png" alt="Upvote">
+                    </button>
                 </form>
                 <span>{{ post.ratings|sum(attribute='value') }}</span>
                 <form action="{{ url_for('main.vote', recipe_id=post.id, vote_type='down') }}" method="post">
-                    <button type="submit">Down</button>
+                    <button type="submit">
+                        <img src="/static/down.png" alt="Downvote">
+                    </button>
                 </form>
             </div>
         </span>
@@ -67,22 +71,25 @@
             Description: {{ post.description }}
         </p>
         <p>
-            <h3>Ingredients:</h3>
-            <ul class="recipe-ingredients">
-                {% for quantified_ingredient in post.quantified_ingredients %}
-                    <li>{{ quantified_ingredient.quantity }} {{ quantified_ingredient.units }} {{ quantified_ingredient.ingredient.name }}</li>
-                {% endfor %}
-            </ul>
+            <div class="ingredients-section">
+                <h3>Ingredients:</h3>
+                <ul class="recipe-ingredients">
+                    {% for quantified_ingredient in post.quantified_ingredients %}
+                        <li>{{ quantified_ingredient.quantity }} {{ quantified_ingredient.units }} {{ quantified_ingredient.ingredient.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </p>
         <p>
-            <h3>Steps:</h3>
-            <ol class="recipe-steps">
-                {% for step in post.steps|sort(attribute='sequence_number') %}
-                    <li>{{ step.description }}</li>
-                {% endfor %}
-            </ol>
-        </p>
-    </section>
+            <div class="steps-section">
+                <h3>Steps:</h3>
+                <ol class="recipe-steps">
+                    {% for step in post.steps|sort(attribute='sequence_number') %}
+                        <li>{{ step.description }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </section>
 
     <!-- JINJA NEEDS UPDATING -->
     <div class="metadata"> 
