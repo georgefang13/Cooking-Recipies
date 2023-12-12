@@ -1,95 +1,41 @@
 <div class="recipe-view">
-    <header id="recipeHeader">
-        <!-- TO IMPLEMENT:
-            make title a link to the recipe view
-            make the username a link to their profile view  -->
-        <span class="recipe-title">
-            <a href="{{ url_for('main.recipe', recipe_id=post.id)}}">
-                <h2 class="recipe-title">{{ post.title }}</h2>
+    <div class="recipe-box">
+        <div class="recipe-header">
+            <a href="{{ url_for('main.profile', user_id=user.id)}}" class="recipe-user">
+                <h3> {{ post.user.name }}</h3>
             </a>
-        </span>
-        <span>
-            <a href="{{ url_for('main.profile', user_id=post.user.id)}}" class="recipe-user">
-                <h3>{{ user.name }}</h3>
-            </a>
-        </span>
-        <span id="recipe-rating">
-            <div class="rating-section">
-                <form action="{{ url_for('main.vote', recipe_id=post.id, vote_type='up') }}" method="post">
-                    <button type="submit">Up</button>
-                </form>
-                <span>{{ post.ratings|sum(attribute='value') }}</span>
-                <form action="{{ url_for('main.vote', recipe_id=post.id, vote_type='down') }}" method="post">
-                    <button type="submit">Down</button>
-                </form>
-            </div>
-        </span>
-        <!-- BOOKMARKS BUTTON / TAB, ONLY IF USER IS AUTHORIZED -->
-        {% if current_user.is_authenticated %}
-            <!-- <a href="{{ url_for('main.recipe', recipe_id=post.id) }}"> -->
-            <!-- <form action="/toggle_bookmark" method="POST">
-                <input type="hidden" 
-                <button type="submit">Bookmark</button> -->
-            {% if bookmark_button == "bookmarked" %}
-                <form action="{{ url_for('main.unbookmark', recipe_id=post.id) }}" method="post">
-                    <input type="submit" value="Unbookmark">
-                </form>
-            {% elif bookmark_button == "bookmark" %}
-                <form action="{{ url_for('main.bookmark', recipe_id=post.id) }}" method="post">
-                    <input type="submit" value="Bookmark">
-                </form>
-            {% endif %}
-            <!-- </a> -->
-        {% else %}
-            <a href="{{ url_for('auth.login')}}">
-                <button type="button">To Bookmark, Log In</button>
-            </a>
-            <a href="{{ url_for('auth.signup')}}">
-                Don't have an account? Sign up!
-            </a>
-        {% endif %} 
-    </header>
-
-    <section class="recipe-specs">
-        <span>Serving Size: {{ post.person_count }}</span>
-        <span>Cook Time: {{ post.cooking_time }}</span>
-    </section>
-    <section id="recipe-details">
-        <!-- Here, we have an image to the left and a description of the recipe to the right -->
-        <div class="recipe-image">
-            {% for photo in post.photos %}
-                <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="photo">
-            {% endfor %}
+            <span class="recipe-title">
+                <a href="{{ url_for('main.recipe', recipe_id=post.id)}}">
+                    <h2>{{ post.title }}</h2>
+                </a>
+            </span>
+            <span id="recipe-rating">
+                Recipe Rating Here (still need to do this)
+            </span>
+            <!-- BOOKMARKS BUTTON -->
         </div>
-        <p class="recipe-description">
-            Description: {{ post.description }}
-        </p>
-        <p>
-            <h3>Ingredients:</h3>
-            <ul class="recipe-ingredients">
-                {% for quantified_ingredient in post.quantified_ingredients %}
-                    <li>{{ quantified_ingredient.quantity }} {{ quantified_ingredient.units }} {{ quantified_ingredient.ingredient.name }}</li>
-                {% endfor %}
-            </ul>
-        </p>
-        <p>
-            <h3>Steps:</h3>
-            <ol class="recipe-steps">
-                {% for step in post.steps|sort(attribute='sequence_number') %}
-                    <li>{{ step.description }}</li>
-                {% endfor %}
-            </ol>
-        </p>
 
-        <!-- <div class="comments-section">
-            <p>My comment here</p>
-        </div> -->
-    </section>
+        <div class="recipe-specs">
+            <!-- Recipe Specifications like Number of People and Cook Time -->
+            <span>Servings: {{ post.person_count }}</span>
+            <span>Cook Time: {{ post.cooking_time }}</span>
+        </div>
+
+        <div id="recipe-details">
+            <!-- Recipe Image and Description -->
+            <div class="recipe-image">
+                <img src="static/testimg.jpg">
+            </div>
+            <p class="recipe-description">
+                Description: {{ post.description }}
+            </p>
+        </div>
     
-    <!-- "metadata" should be hidden -->
-    <!-- JINJA NEEDS UPDATING -->
-    <div class="metadata"> 
-        <span class="author">@username</span>
-        <span class="date">timestamp</span>
+        <!-- Metadata (Hidden) -->
+        <!-- JINJA NEEDS UPDATING -->
+        <div class="metadata"> 
+            <span class="author">@username</span>
+            <span class="date">timestamp</span>
+        </div>
     </div>
 </div>
