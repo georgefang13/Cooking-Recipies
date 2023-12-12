@@ -18,9 +18,20 @@
         </span>
         <!-- BOOKMARKS BUTTON / TAB, ONLY IF USER IS AUTHORIZED -->
         {% if current_user.is_authenticated %}
-            <a href="{{ url_for('main.toggle_bookmark', recipe_id=post.id) }}">
-                <button type="button" action='/toggle_bookmark' method="post" onclick="toggleBookmark(this)">Bookmark</button>
-            </a>
+            <!-- <a href="{{ url_for('main.recipe', recipe_id=post.id) }}"> -->
+            <!-- <form action="/toggle_bookmark" method="POST">
+                <input type="hidden" 
+                <button type="submit">Bookmark</button> -->
+            {% if bookmark_button == "bookmarked" %}
+                <form action="{{ url_for('main.unbookmark', recipe_id=post.id) }}" method="post">
+                    <input type="submit" value="Unbookmark">
+                </form>
+            {% elif bookmark_button == "bookmark" %}
+                <form action="{{ url_for('main.bookmark', recipe_id=post.id) }}" method="post">
+                    <input type="submit" value="Bookmark">
+                </form>
+            {% endif %}
+            <!-- </a> -->
         {% else %}
             <a href="{{ url_for('auth.login')}}">
                 <button type="button">To Bookmark, Log In</button>
@@ -28,9 +39,9 @@
             <a href="{{ url_for('auth.signup')}}">
                 Don't have an account? Sign up!
             </a>
-        {% endif %}
-        
+        {% endif %} 
     </header>
+
     <section class="recipe-specs">
         <span>Serving Size: {{ post.person_count }}</span>
         <span>Cook Time: {{ post.cooking_time }}</span>
