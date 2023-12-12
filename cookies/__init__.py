@@ -19,7 +19,7 @@ def create_app(test_config=None):
 
     # Initialize database
     db.init_app(app)
-
+ 
     # Inside create_app:
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
