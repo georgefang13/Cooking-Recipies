@@ -4,7 +4,7 @@ import dateutil.tz
 from flask import Blueprint, render_template, render_template, request, redirect, url_for, flash, current_app
 import flask_login
 from flask_login import current_user
-from .model import User, Recipe, QuantifiedIngredient, Step, Ingredient, Bookmark, Rating
+from .model import User, Recipe, QuantifiedIngredient, Step, Ingredient, Bookmark, Rating, Photo
 from pathlib import Path
 
 from . import db
@@ -133,7 +133,7 @@ def new_recipe():
                 # might need to add some sort of redirect here
 
             # Create a new Photo object and store it into the database
-            photo = model.Photo(
+            photo = Photo(
                 user=flask_login.current_user,
                 recipe=recipe,
                 file_extension=file_extension
@@ -176,4 +176,42 @@ def vote(recipe_id, vote_type):
         db.session.add(new_vote)
 
     db.session.commit()
+    return redirect(url_for('main.recipe', recipe_id=recipe_id))
+
+@bp.route("/add_photo/<int:recipe_id>", methods=['POST'])
+@flask_login.login_required
+def add_photo(recipe_id):
+    uploaded_file = request.files['photo']
+    if uploaded_file.filename != '':
+        content_type = uploaded_file.content_type
+        if content_type == "image/png":
+            file_extension = "png"
+        elif content_type == "image/jpeg":
+            file_extension = "jpg"
+        elif content_type == "image/gif":
+            file_extension = "gif"
+        else:
+            flash(f"Unsupported file type {content_type}", 'error')
+            return redirect(url_for('main.recipe', recipe_id=recipe_id))
+
+        # Create a new Photo object and store it into the database
+        photo = Photo(
+            user=flask_login.current_user,
+            recipe_id=recipe_id,  # assuming recipe_id is passed correctly
+            file_extension=file_extension
+        )
+        db.session.add(photo)
+        db.session.commit()
+
+        # Save the photo to the photos folder
+        path = (
+            Path(current_app.root_path)
+            / "static"
+            / "photos"
+            / f"photo-{photo.id}.{file_extension}"
+        )
+        uploaded_file.save(path)
+
+        flash('Photo uploaded successfully!', 'success')
+
     return redirect(url_for('main.recipe', recipe_id=recipe_id))
