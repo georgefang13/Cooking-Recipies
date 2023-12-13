@@ -70,27 +70,6 @@
         <p class="recipe-description">
             Description: {{ post.description }}
         </p>
-        <p>
-            <div class="ingredients-section">
-                <h3>Ingredients:</h3>
-                <ul class="recipe-ingredients">
-                    {% for quantified_ingredient in post.quantified_ingredients %}
-                        <li>{{ quantified_ingredient.quantity }} {{ quantified_ingredient.units }} {{ quantified_ingredient.ingredient.name }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </p>
-        <p>
-            <div class="steps-section">
-                <h3>Steps:</h3>
-                <ol class="recipe-steps">
-                    {% for step in post.steps|sort(attribute='sequence_number') %}
-                        <li>{{ step.description }}</li>
-                    {% endfor %}
-                </ol>
-            </div>
-        </section>
-
     <!-- JINJA NEEDS UPDATING -->
     <div class="metadata"> 
         <span class="author">{{ post.user.name }}</span>
