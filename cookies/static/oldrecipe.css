@@ -1,14 +1,14 @@
-/* General Styles */
+/* General Styles
 body {
     font-family: 'Times New Roman', serif;
     background-color: #7390ad; 
     color: #1d273a;
     margin: 0;
     padding: 0;
-}
+} */
 
 /* Header Bar */
-header {
+/* header {
     background-color: #1d273a; 
     color: #ffffff;
     display: flex;
@@ -28,11 +28,11 @@ header a {
 }
 
 header a:hover {
-    color: #1d273a; /* Hover effect */
-}
+    color: #1d273a; 
+} */
 
 /* Base.html Header CSS */
-#nav {
+/* #nav {
     background-color: #7390ad;
     padding: 0.5em 0;
     display: flex;
@@ -62,10 +62,10 @@ header a:hover {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-}
+} */
 
 /* Home Page Styles */
-.search-bar, .sort-feature {
+/* .search-bar, .sort-feature {
     background: #fff;
     padding: 15px;
     margin: 10px 0;
@@ -94,10 +94,10 @@ header a:hover {
 
 .plus-button:hover, .profile-picture:hover {
     transform: scale(1.1);
-}
+} */
 
 /* Recipe Box */
-.recipe-box {
+/* .recipe-box {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -105,41 +105,41 @@ header a:hover {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-}
+} */
 
 /* Recipe Header */
-.recipe-header {
+/* .recipe-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-}
+} */
 
 /* Recipe User */
-.recipe-user h3 {
+/* .recipe-user h3 {
     font-size: 1em;
     color: #374254;
     margin: 0;
-}
+} */
 
 /* Recipe Title */
-.recipe-title h2 {
+/* .recipe-title h2 {
     font-size: 2em;
     color: #1d273a;
     text-align: center;
     margin: 0;
     flex-grow: 1;
-}
+} */
 
 /* Recipe Rating */
-#recipe-rating {
+/* #recipe-rating {
     color: #374254;
     margin: 0;
-}
+} */
 
 /* Comment and Metadata Styles */
-.comments-section {
+/* .comments-section {
     margin-top: 20px;
 }
 
@@ -152,10 +152,10 @@ header a:hover {
 
 .metadata {
     visibility: hidden;
-}
+} */
 
 /* Profile View Styles */
-.profile-view {
+/* .profile-view {
     text-align: center;
     margin: 0px;
 }
@@ -173,9 +173,9 @@ header a:hover {
 .user-recipes, .bookmarked-recipes {
     list-style: none;
     padding: 0;
-}
+} */
 
-/* Responsive Design */
+/* Responsive Design 
 @media (max-width: 768px) {
     .recipe-view {
         flex-direction: column;
@@ -184,4 +184,4 @@ header a:hover {
     .recipe-box {
         flex-direction: column;
     }
-}
+} */
